@@ -53,3 +53,8 @@ CREATE TABLE IF NOT EXISTS `cul_ampolla_db`.`clients` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+ALTER TABLE providors ADD CONSTRAINT FOREIGN KEY(address_id) REFERENCES address(id);
+ALTER TABLE clients ADD CONSTRAINT FOREIGN KEY(address_id) REFERENCES address(id);
+ALTER TABLE glasses ADD providor_id INT NOT NULL;
+ALTER TABLE glasses ADD CONSTRAINT FOREIGN KEY(providor_id) REFERENCES providors(id);
+ALTER TABLE glasses ADD CONSTRAINT FOREIGN KEY(sold_by_employee_id) REFERENCES employee(id);
