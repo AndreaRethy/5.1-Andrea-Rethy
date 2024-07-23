@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS `cul_ampolla_db`.`providors` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `address_id` INT NOT NULL,
-  `phone` INT NOT NULL,
-  `fax` INT,
+  `phone` VARCHAR(15) NOT NULL,
+  `fax` VARCHAR(15),
   `tax_id` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
