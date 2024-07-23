@@ -77,13 +77,13 @@ VALUES
 /* Insert dummy data into `purchases` table */
 INSERT INTO `purchases` (`client_id`, `sold_by`, `product_id`, `sale_period`)
 VALUES
-(1, 1, 1, 'Spring'),
-(2, 2, 2, 'Summer'),
-(3, 3, 3, 'Autumn'),
-(4, 4, 4, 'Winter'),
-(5, 5, 5, 'Spring'),
-(6, 4, 6, 'Summer'),
-(7, 4, 7, 'Autumn'),
-(8, 2, 8, 'Winter'),
-(9, 5, 9, 'Spring'),
-(1, 1, 10, 'Summer');
+(1, 1, 1, '2021'),
+(2, 2, 2, '2021'),
+(3, 3, 3, '2022'),
+(4, 4, 4, '2022'),
+(5, 5, 5, '2022'),
+(6, 4, 6, '2022'),
+(7, 4, 7, '2022'),
+(8, 2, 8, '2023'),
+(9, 5, 9, '2023'),
+(1, 1, 10, '2023');
