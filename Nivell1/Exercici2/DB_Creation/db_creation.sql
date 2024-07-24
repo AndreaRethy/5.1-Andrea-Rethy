@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `pizzeria_db`.`orders` (
   `total_price` INT NOT NULL,
   `delivery_method_id` INT NOT NULL,
   `customer_id` INT NOT NULL,
+  `shop_id`INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -107,6 +108,7 @@ ENGINE = InnoDB;
 
 ALTER TABLE orders ADD CONSTRAINT FOREIGN KEY(delivery_method_id) REFERENCES delivery_methods(id);
 ALTER TABLE orders ADD CONSTRAINT FOREIGN KEY(customer_id) REFERENCES customers(id);
+ALTER TABLE orders ADD CONSTRAINT FOREIGN KEY(shop_id) REFERENCES shops(id);
 ALTER TABLE products ADD CONSTRAINT FOREIGN KEY(product_type_id) REFERENCES product_types(id);
 ALTER TABLE products ADD CONSTRAINT FOREIGN KEY(pizza_category_id) REFERENCES pizza_categories(id);
 ALTER TABLE employees ADD CONSTRAINT FOREIGN KEY(position_id) REFERENCES positions(id);
