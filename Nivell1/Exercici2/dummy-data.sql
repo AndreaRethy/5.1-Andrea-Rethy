@@ -33,7 +33,7 @@ VALUES
 ('Emma', 'Jones', 'B23456789', '234-567-8901', 2, 1),
 ('Lucas', 'Martinez', 'C34567890', '345-678-9012', 1, 2),
 ('Lily', 'White', 'D45678901', '456-789-0123', 2, 2),
-('James', 'Taylor', 'E56789012', '567-890-1234', 1, 1),
+('James', 'Taylor', 'E56789012', '567-890-1234', 2, 1),
 ('Grace', 'Harris', 'F67890123', '678-901-2345', 2, 2);
 
 /* Insert dummy data for pizza categories */
