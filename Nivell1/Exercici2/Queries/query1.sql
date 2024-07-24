@@ -1,5 +1,5 @@
 /* List how many products of type "drinks" have been sold in a certain shop. */
-SELECT products.id, ordered_items.quantity, orders.shop_id
+SELECT SUM(ordered_items.quantity)
 FROM ((products
 INNER JOIN ordered_items ON products.id = ordered_items.product_id)
 INNER JOIN orders ON orders.id = ordered_items.order_id)
