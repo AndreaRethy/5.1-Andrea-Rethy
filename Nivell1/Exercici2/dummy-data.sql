@@ -70,10 +70,22 @@ VALUES
 ('Orange Juice', 'Fresh orange juice', 'orange_juice.jpg', 3, 3, NULL);
 
 /* Insert dummy data for delivery methods */
-INSERT INTO `delivery_methods` (name, delivery_details_id)
+INSERT INTO `delivery_methods` (name)
 VALUES 
-('home-delivery', NULL),
-('store-pick-up', NULL);
+('home-delivery'),
+('store-pick-up');
+
+/* Insert dummy data for orders */
+INSERT INTO `delivery_details` (delivery_time, delivery_method_id, employee_id)
+VALUES 
+('2023-07-24 19:30:00', 1, 2),
+('2023-07-24 20:30:00', 1, 3),
+('2023-07-24 21:30:00', 1, 4),
+('2023-07-24 22:30:00', 1, 6),
+('2023-07-24 23:30:00', 1, 2),
+('2023-07-25 18:30:00', 1, 3),
+('2023-07-25 19:30:00', 1, 3),
+('2023-07-25 20:30:00', 1, 4);
 
 /* Insert dummy data for orders */
 INSERT INTO `orders` (date_time, total_price, delivery_method_id, customer_id)
@@ -88,7 +100,7 @@ VALUES
 ('2023-07-24 22:00:00', 32, 2, 8),
 ('2023-07-24 22:30:00', 19, 1, 9),
 ('2023-07-24 23:00:00', 21, 2, 10),
-('2023-07-24 23:30:00', 27, 1, 1),
+('2023-07-25 17:30:00', 27, 1, 1),
 ('2023-07-25 18:00:00', 29, 2, 2),
 ('2023-07-25 18:30:00', 22, 1, 3),
 ('2023-07-25 19:00:00', 31, 2, 4),
