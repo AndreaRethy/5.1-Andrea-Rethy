@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `youtube`.`users` (
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `youtube`.`published_videos` (
+CREATE TABLE IF NOT EXISTS `youtube`.`videos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `description` VARCHAR(1000) NOT NULL,
@@ -52,12 +52,12 @@ CREATE TABLE IF NOT EXISTS `youtube`.`user_videos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `publish_time` DATETIME NOT NULL,
   `user_id` INT NOT NULL,
-  `video_id` VARCHAR(45) NOT NULL,
+  `video_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `youtube`.`channel` (
+CREATE TABLE IF NOT EXISTS `youtube`.`channels` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(1000) NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `youtube`.`comments` (
   `text` VARCHAR(250) NOT NULL,
   `timestamp` DATETIME NOT NULL,
   `user_id` INT NOT NULL,
-  `video_id` VARCHAR(45) NOT NULL,
+  `video_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -123,3 +123,18 @@ CREATE TABLE IF NOT EXISTS `youtube`.`comment_likes` (
 ENGINE = InnoDB;
 CREATE UNIQUE INDEX limit_likes ON comment_likes(user_id, comment_id);
 
+ALTER TABLE videos ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
+ALTER TABLE video_tags ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
+ALTER TABLE video_tags ADD CONSTRAINT FOREIGN KEY(tag_id) REFERENCES tags(id);
+ALTER TABLE user_videos ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
+ALTER TABLE user_videos ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
+ALTER TABLE user_subscriptions ADD CONSTRAINT FOREIGN KEY(channel_id) REFERENCES channels(id);
+ALTER TABLE user_subscriptions ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
+ALTER TABLE video_likes ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
+ALTER TABLE video_likes ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
+ALTER TABLE playlist_videos ADD CONSTRAINT FOREIGN KEY(playlist_id) REFERENCES playlists(id);
+ALTER TABLE playlist_videos ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES playlists(id);
+ALTER TABLE comments ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
+ALTER TABLE comments ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
+ALTER TABLE comment_likes ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
+ALTER TABLE comment_likes ADD CONSTRAINT FOREIGN KEY(comment_id) REFERENCES comments(id);
