@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `youtube`.`users` (
   `sex` VARCHAR(45) NULL,
   `country` VARCHAR(45) NULL,
   `postal_code` VARCHAR(45) NULL,
+  `channel_id` INT,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -99,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `youtube`.`playlist_videos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `playlist_id` INT NOT NULL,
   `video_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -123,6 +125,7 @@ CREATE TABLE IF NOT EXISTS `youtube`.`comment_likes` (
 ENGINE = InnoDB;
 CREATE UNIQUE INDEX limit_likes ON comment_likes(user_id, comment_id);
 
+ALTER TABLE users ADD CONSTRAINT FOREIGN KEY(channel_id) REFERENCES channels(id);
 ALTER TABLE videos ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
 ALTER TABLE video_tags ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
 ALTER TABLE video_tags ADD CONSTRAINT FOREIGN KEY(tag_id) REFERENCES tags(id);
@@ -133,7 +136,8 @@ ALTER TABLE user_subscriptions ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES us
 ALTER TABLE video_likes ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
 ALTER TABLE video_likes ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
 ALTER TABLE playlist_videos ADD CONSTRAINT FOREIGN KEY(playlist_id) REFERENCES playlists(id);
-ALTER TABLE playlist_videos ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES playlists(id);
+ALTER TABLE playlist_videos ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
+ALTER TABLE playlist_videos ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
 ALTER TABLE comments ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
 ALTER TABLE comments ADD CONSTRAINT FOREIGN KEY(video_id) REFERENCES videos(id);
 ALTER TABLE comment_likes ADD CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id);
