@@ -10,5 +10,14 @@ CREATE TABLE IF NOT EXISTS `spotify`.`users` (
     `sex` ENUM('male', 'female', 'other'),
     `country` VARCHAR(45),
     `postal_code` VARCHAR(45),
+    `subscription_id` INT,
     PRIMARY KEY(`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`subscriptions`(
+	`id` INT NOT NULL AUTO_INCREMENT,
+    `start_date` DATE NOT NULL,
+    `renewal_date` DATE NOT NULL,
+    `payment_form` ENUM('credit card', 'PayPal') NOT NULL,
+PRIMARY KEY(`id`))
 ENGINE = InnoDB;
