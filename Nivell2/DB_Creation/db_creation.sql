@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `youtube`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `birthday` VARCHAR(45) NOT NULL,
+  `birthday` DATE NOT NULL,
   `sex` VARCHAR(45) NULL,
   `country` VARCHAR(45) NULL,
   `postal_code` VARCHAR(45) NULL,
