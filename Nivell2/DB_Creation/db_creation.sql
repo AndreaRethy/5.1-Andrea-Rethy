@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `youtube`.`channels` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(1000) NOT NULL,
-  `creation date` DATETIME NOT NULL,
+  `creation_date` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
