@@ -3,7 +3,7 @@ USE `spotify`;
 
 CREATE TABLE IF NOT EXISTS `spotify`.`credit_card_details`(
 `id` INT NOT NULL AUTO_INCREMENT,
-`card_number` INT NOT NULL,
+`card_number` BIGINT(16) NOT NULL,
 `expiry_month` INT(2) NOT NULL,
 `expiry_year` INT(2) NOT NULL,
 `security_code` INT(3) NOT NULL,
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `spotify`.`playlists`(
 `deletion_date` DATETIME,
 `shared_with_id` INT,
 PRIMARY KEY(`id`),
-CONSTRAINT deletion_date CHECK (status = 'deleted' AND deletion_date IS NOT NULL),
-CONSTRAINT shared_with_id CHECK (status = 'deleted' AND shared_with_id IS NULL),
+CONSTRAINT deletion_date CHECK ((status = 'deleted' AND deletion_date IS NOT NULL) OR (status = 'active' AND deletion_date IS NULL)),
+CONSTRAINT shared_with_id CHECK ((status = 'deleted' AND shared_with_id IS NULL) OR (status = 'active')),
 CONSTRAINT FOREIGN KEY(shared_with_id) REFERENCES users(id))
 ENGINE = InnoDB;
 
