@@ -116,7 +116,7 @@ CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id),
 CONSTRAINT FOREIGN KEY(artist_id) REFERENCES artists(id))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `spotify`.`favourites`(
+CREATE TABLE IF NOT EXISTS `spotify`.`favourite_albums`(
 `id` INT NOT NULL AUTO_INCREMENT,
 `album_id` INT NOT NULL,
 `user_id` INT NOT NULL,
@@ -125,7 +125,7 @@ CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id),
 CONSTRAINT FOREIGN KEY(album_id) REFERENCES albums(id))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `spotify`.`favourites`(
+CREATE TABLE IF NOT EXISTS `spotify`.`favourite_songs`(
 `id` INT NOT NULL AUTO_INCREMENT,
 `song_id` INT NOT NULL,
 `user_id` INT NOT NULL,
