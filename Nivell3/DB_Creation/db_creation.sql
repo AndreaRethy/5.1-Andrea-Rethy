@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS `spotify`.`subscriptions`(
     `payment_history_id` INT NOT NULL,
 PRIMARY KEY(`id`),
 CONSTRAINT chk_payment_details CHECK ((payment_form = 'credit card' AND credit_card_details_id IS NOT NULL) OR (payment_form = 'PayPal' AND paypal_details_id IS NOT NULL)),
+CONSTRAINT FOREIGN KEY(credit_card_details_id) REFERENCES credit_card_details(id),
+CONSTRAINT FOREIGN KEY(paypal_details_id) REFERENCES paypal_details(id),
 CONSTRAINT FOREIGN KEY(payment_history_id) REFERENCES payment_history(id))
 ENGINE = InnoDB;
 
@@ -58,8 +60,85 @@ CREATE TABLE IF NOT EXISTS `spotify`.`playlists`(
 `creation_date` DATETIME NOT NULL,
 `status` ENUM('active', 'deleted') NOT NULL,
 `deletion_date` DATETIME,
+`shared_with_id` INT,
 PRIMARY KEY(`id`),
-CONSTRAINT deletion_date CHECK (status = 'deleted' AND deletion_date IS NOT NULL))
+CONSTRAINT deletion_date CHECK (status = 'deleted' AND deletion_date IS NOT NULL),
+CONSTRAINT shared_with_id CHECK (status = 'deleted' AND shared_with_id IS NULL),
+CONSTRAINT FOREIGN KEY(shared_with_id) REFERENCES users(id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`artists`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(150) NOT NULL,
+`image_url` VARCHAR(1000) NOT NULL,
+PRIMARY KEY(`id`))
 ENGINE = InnoDB;
 
 
+CREATE TABLE IF NOT EXISTS `spotify`.`albums`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`title` VARCHAR(100) NOT NULL,
+`publication_year` YEAR NOT NULL,
+`artist_id` INT NOT NULL,
+`image_url` VARCHAR(1000) NOT NULL,
+PRIMARY KEY(`id`),
+CONSTRAINT FOREIGN KEY(artist_id) REFERENCES artists(id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`songs`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`title` VARCHAR(100) NOT NULL,
+`duration` INT NOT NULL,
+`playback_count` INT NOT NULL,
+`album_id` INT,
+PRIMARY KEY(`id`),
+CONSTRAINT FOREIGN KEY(album_id) REFERENCES albums(id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`shared`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`date_added_song` DATETIME NOT NULL,
+`playlist_id` INT NOT NULL,
+`user_id` INT NOT NULL,
+`song_id` INT NOT NULL,
+PRIMARY KEY(`id`),
+CONSTRAINT FOREIGN KEY(playlist_id) REFERENCES playlists(id),
+CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id),
+CONSTRAINT FOREIGN KEY(song_id) REFERENCES songs(id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`following`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`artist_id` INT NOT NULL,
+`user_id` INT NOT NULL,
+PRIMARY KEY(`id`),
+CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id),
+CONSTRAINT FOREIGN KEY(artist_id) REFERENCES artists(id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`favourites`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`album_id` INT NOT NULL,
+`user_id` INT NOT NULL,
+PRIMARY KEY(`id`),
+CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id),
+CONSTRAINT FOREIGN KEY(album_id) REFERENCES albums(id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`favourites`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`song_id` INT NOT NULL,
+`user_id` INT NOT NULL,
+PRIMARY KEY(`id`),
+CONSTRAINT FOREIGN KEY(user_id) REFERENCES users(id),
+CONSTRAINT FOREIGN KEY(song_id) REFERENCES songs(id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `spotify`.`similar_artists`(
+`id` INT NOT NULL AUTO_INCREMENT,
+`artist_id` INT NOT NULL,
+`similar_artist_id` INT NOT NULL,
+PRIMARY KEY(`id`),
+CONSTRAINT FOREIGN KEY(similar_artist_id) REFERENCES artists(id),
+CONSTRAINT FOREIGN KEY(artist_id) REFERENCES artists(id))
+ENGINE = InnoDB;
